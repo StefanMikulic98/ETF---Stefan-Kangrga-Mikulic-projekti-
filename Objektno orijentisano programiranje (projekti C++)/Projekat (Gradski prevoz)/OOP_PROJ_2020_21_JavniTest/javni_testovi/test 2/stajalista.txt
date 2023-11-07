@@ -1,0 +1,23 @@
+154 Zeleni park
+578 Pijaca "Zdravlje"
+579 Pijaca "Zdravlje"
+23 Trg kralja Milana
+24 Trg kralja Milana
+1024 Bulevar Stefana Nemanje
+1025 Bulevar Stefana Nemanje
+103 Ive Andrica
+104 Ive Andrica
+41 Shopping city
+42 Shopping city
+796 Gradska tvrdjava
+797 Gradska tvrdjava
+1555 Tehnicka skola
+1556 Tehnicka skola
+1 Crkva Svetog Marka
+1056 Danila Kisa
+1057 Danila Kisa
+777 Nadje Higl
+778 Nadje Higl
+231 Trg oslobodjenja
+232 Trg oslobodjenja
+411 Dunavski kej

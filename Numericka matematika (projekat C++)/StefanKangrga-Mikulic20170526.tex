@@ -1,0 +1,1174 @@
+\documentclass[12pt,leqno,a4paper]{article}
+
+\usepackage{epsf}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage[T1]{fontenc}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{multirow}
+\usepackage{hyperref}
+\usepackage[english,serbianc]{babel}
+\usepackage{listings} %!!!!!!!!!!!!!!!!!!!!!!
+\usepackage{pgfplots}
+ 
+\pgfplotsset{compat = newest}
+
+\usepackage{pgf,tikz}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+\pagestyle{empty}
+
+
+\def\dj{d{\hspace{-.32em}\raisebox{.7ex}{-}}}
+\def\Dj{D{\hspace{-.75em}\raisebox{.3ex}{-}\hspace{.4em}}}
+\def\boxx{\mbox{\footnotesize \fbox{${\;\;}^{\!}$}}}
+\def\stop{\mbox{\footnotesize {\vrule width 6pt height 6pt}}}
+
+\newtheorem{zadatak1}{Zadatak 1.5}
+\newtheorem{zadatak2}{Zadatak 2.5}
+
+% Custom colors
+\usepackage{color}
+\definecolor{deepblue}{rgb}{0,0,0.5}
+\definecolor{deepred}{rgb}{0.6,0,0}
+\definecolor{deepgreen}{rgb}{0,0.5,0}
+\definecolor{codegreen}{rgb}{0,0.6,0}%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{codepurple}{rgb}{0.58,0,0.82}%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\renewcommand{\refname}{Литература}
+
+\renewcommand{\figurename}{Слика}
+
+\usepackage{listings}
+
+% Python style for highlighting
+\newcommand\pythonstyle{\lstset{
+		language=Python,
+		basicstyle=\ttm,
+		otherkeywords={self},             % Add keywords here
+		keywordstyle=\ttb\color{deepblue},
+		emph={MyClass,__init__},          % Custom highlighting
+		emphstyle=\ttb\color{deepred},    % Custom highlighting style
+		stringstyle=\color{deepgreen},
+		frame=tb,                         % Any extra options here
+		showstringspaces=false            % 
+}}
+
+
+% Python environment
+\lstnewenvironment{python}[1][]
+{
+	\pythonstyle
+	\lstset{#1}
+}
+{}
+
+% Python for external files
+\newcommand\pythonexternal[2][]{{
+		\pythonstyle
+		\lstinputlisting[#1]{#2}}}
+
+\title{\color{deepblue}  NAD-Numeri\v cka analiza\\* Predispitni rad }
+\author{\color{deepred} Stefan Kangrga-Mikuli\' c, 2017/526 \\* \color{deepred} Fizi\v cka elektronika 13E082NUM, Elektrotehni\v cki fakultet, Beograd }
+\date{16.09.2021.godine}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Code listing style named "mystyle"
+\lstdefinestyle{mystyle}{
+  backgroundcolor=\color{backcolour}, commentstyle=\color{codegreen},
+  keywordstyle=\color{magenta},
+  numberstyle=\tiny\color{codegray},
+  stringstyle=\color{codepurple},
+  basicstyle=\ttfamily\footnotesize,
+  breakatwhitespace=false,         
+  breaklines=true,                 
+  captionpos=b,                    
+  keepspaces=true,                 
+  numbers=left,                    
+  numbersep=5pt,                  
+  showspaces=false,                
+  showstringspaces=false,
+  showtabs=false,                  
+  tabsize=2
+}
+
+%"mystyle" code listing set
+\lstset{style=mystyle}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\maketitle
+
+\v Clanovi tima: Stefan Kangrga-Mikuli\' c, 2017/526
+
+\section*{Zadatak 1.5} 
+
+Izlazna struja solarne \' celije zavisi od napona. Napon $V_{mp}$ pri kome je izlazna struja maksimalna je dat jedna\v cinom:
+
+\begin{equation*}
+  \begin{aligned}
+   e^{\frac{q \cdot V_{mp}}{k_{B} \cdot T}} \cdot (1 + \frac{q \cdot V_{mp}}{k_{B} \cdot T}) = \frac{q \cdot V_{OC}}{k_{B} \cdot T}
+ \end{aligned}
+\end{equation*}
+
+gde je $V_{OC}$ napon otvorenog kola, $T$ temperatura u kelvinima, $q = 1,6022 \cdot 10^{-19} C$ naelektrisanje elektrona, $k_{B} = 1.3806 \cdot 10^{-23} J/k$ Bolcmanova konstanta. Neka je $V_{OC} = 0.5 V$ i $T=297 K$. Razviti program koji izra\v cunava napon $V_{mp}$ za koji je izlazna struja iz solarne \' celije maksimalna. Primeniti metodu proste iteracije sa po\v cetnom iteracijom $V_{mp}^{0}=0.5 V$ sa ta\v cno\v s\' cu $10^{-3}$.
+
+\section{Opis algoritma}%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Na po\v cetku mora da se preformuli\v se polazna jedna\v cina na oblik:
+
+\begin{equation*}
+  \begin{aligned}
+    g(x)=x
+ \end{aligned}
+\end{equation*}
+
+za neku funkciju $g$, ali tako da za svako $x \in [a,b]$, gde je interval $[a, b]$ gde se nalazi pribli\v zna vrednost, va\v zi da je $a \leq g(x) \leq b$ i da je $\mid g^{\prime}(x) \mid \leq k$ pri \v cemu je $0<k<1$.
+Od polazne jedna\v cine se dobija:
+
+\begin{equation*}
+  \begin{aligned}
+   V_{mp}=\frac{k_{B} \cdot T}{2 \cdot q} \cdot (\frac{q \cdot V_{OC}}{k_{B} \cdot T} - \ln{\frac{q \cdot V_{mp}}{k_{B} \cdot T}})
+ \end{aligned}
+\end{equation*}
+tj. 
+\begin{equation*}
+  \begin{aligned}
+   g(x)=\frac{k_{B} \cdot T}{2 \cdot q} \cdot (\frac{q \cdot V_{OC}}{k_{B} \cdot T} - \ln{\frac{q \cdot x}{k_{B} \cdot T}})
+ \end{aligned}
+\end{equation*}
+ 
+
+
+Iterativna metoda glasi:
+\begin{equation*}
+  \begin{aligned}
+   x_{n+1}=\frac{k_{B} \cdot T}{2 \cdot q} \cdot (\frac{q \cdot V_{OC}}{k_{B} \cdot T} - \ln{\frac{q \cdot x_{n}}{k_{B} \cdot T}})
+ \end{aligned}
+\end{equation*}
+
+Deo koda koji vr\v si iteraciju :
+\begin{lstlisting}[language=C++ ]
+while (radi) {
+		prethodni_rezultat = pomocna_promenljiva;
+		pomocna_promenljiva = (kB * T) / (2 * q) *((q * Voc) / (kB * T) - log((q * pomocna_promenljiva) / (kB * T)));
+		broj_iteracije++;
+		cout << broj_iteracije << "		" << pomocna_promenljiva << endl;
+		if (broj_iteracije == 10 || radi == uporedi(pomocna_promenljiva, prethodni_rezultat)) { break; }
+	}
+\end{lstlisting}
+
+Za $x \in [0,0.5]$ va\v zi da je $\mid g^{\prime}(x) \mid = \mid \frac{k_{B} \cdot T}{2 \cdot q \cdot x}\mid \leq 0.0256 < 1$. Sada su ispunjeni svi uslovi da se primeni ova iterativna metoda sa $x_{0}=V_{mp}^{0}=0.5$.
+
+Za kriterijum zaustavljanja nalazimo:
+\begin{equation*}
+  \begin{aligned}
+  \frac{0.1^{n}}{1-0.1} \cdot \mid 0.211966 - 0.5 \mid \leq 10^{-3}
+ \end{aligned}
+\end{equation*}
+da je za $n=3$ ispunjena ocena.
+
+\begin{table}[h!]
+\centering
+ \begin{tabular}{||c c||} 
+ \hline
+ n & x_{n}(=g(x_{n-1})) \\ [0.5ex] 
+ \hline\hline
+ 0 & 0.5 \\ 
+ 1 & 0.211966\\ 
+ 2 & 0.222947\\ 
+ 3 & 0.222301\\ 
+ 4 & 0.222338\\ 
+ 5 & 0.222336\\ 
+ 6 & 0.222336\\ 
+ \hline
+ \end{tabular}
+\end{table}
+
+
+\section{Komentari}
+
+Imaju\' ci u vidu na zahtevanu ta\v cnost, poklapanja vrednosti na 4 decimale je do\v slo ve\' c u 3. i 4.iteraciji,pa je program tako napisan da ipak radi dalje dok ne dodje do poklapanja  na 6 decimale.
+
+\section{Dodatak}
+Main.cpp
+\begin{lstlisting}[language=C++ ]
+#include <cmath>
+#include <iostream>
+using namespace std;
+
+bool uporedi(float trenutni_rezultat, float prethodni_rezultat) {
+	if (fabs(trenutni_rezultat - prethodni_rezultat) < 0.000001f) {
+		return true;
+	}
+	return false;
+}
+
+int main() {
+	float q = 0.00000000000000000016022;
+	float kB = 0.000000000000000000000013806;
+	float Voc = 0.5;
+	float T = 297;
+	float Vmp_pocetno = 0.5;
+	float pomocna_promenljiva = 0, prethodni_rezultat = 0;
+	int broj_iteracije = 0;
+	bool radi = true;
+
+	cout << "Pocetna jednacina se moze tranformisati u: Vmp=\n " <<  (kB * T)/(2*q) << " * ( " << (q * Voc) / (kB * T) << " - ln( " << q / (kB * T) << "*Vmp))" << endl << endl;
+	pomocna_promenljiva = Vmp_pocetno;
+
+	cout << broj_iteracije << "		" << pomocna_promenljiva << endl;
+	while (radi) {
+		prethodni_rezultat = pomocna_promenljiva;
+		pomocna_promenljiva = (kB * T) / (2 * q) *((q * Voc) / (kB * T) - log((q * pomocna_promenljiva) / (kB * T)));
+		broj_iteracije++;
+		cout << broj_iteracije << "		" << pomocna_promenljiva << endl;
+		if (broj_iteracije == 10 || radi == uporedi(pomocna_promenljiva, prethodni_rezultat)) { break; }
+		//radi = uporedi(pomocna_promenljiva, prethodni_rezultat);
+	}
+
+}
+\end{lstlisting}
+\section*{Zadatak 2.5} 
+
+Struje $i_1,i_2,i_3,i_4,i_5 $ u kolu prikazanom na slici 3, mogu se odrediti re\v savanjem sistema jednacina:
+
+\begin{equation*}
+  \begin{aligned}
+    9.5i1-2.5i2-2i4=12 \\
+    -2.5i1+11i2-3.5i3-5i5=-16\\
+    -3.5i2+15.5i3-4i5=14\\
+    -2i1+7i4-3i5=10\\
+    -5i2-4i3-3i4+12i5=-30
+ \end{aligned}
+\end{equation*}
+
+Razviti program koji izra\v cunava struje primenom Gausove metode eliminacije sa izborom pivota i $LU$ dekompozicije. Razviti program koji primenjuje Gaus-Zajdelovu metodu i ispitati da li ova metoda konvergira za po\v cetnu iteraciju koja je jednaka nula-vektoru. Komentarisati dobijene rezultate.
+
+\section{Opis algoritma}%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Program, koji simulira re\v savanje zadatka pomo\'cu Gausove metode eliminacije i
+Gaus-Zajdelove metode, radjen je na programskom jeziku C++.
+Program se sastoji iz nekoliko fajlova( Jednacina.h, Jednacina.cpp, SistemJednacina.h, SistemJednacina.cpp i Main.cpp).
+Klasa "Jedna\v cina" \  ima promenljivu "koeficijenti\_"\  \v sto predstavlja vektor
+elemenata \v ciji \v clanovi ce biti koeficijente date jedna\v cine.
+Klasa "SistemJednacina"\  ima promenljivu "jednacine\_" ( predstavlja vektor
+\v ciji \v clanovi ce biti objekti klase "Jedna\v cina"\  i predstavlja\' ce odredjenu vrstu u matrici sistema jedna\v cine),
+"multiplikatori\_"\\( predstavlja vektor tipa "double"\  \v sto \' ce predstavljati multiplikatore i ovaj vektor \' ce se
+prazniti pri svakom novom koraku pri odredjivanju nove matrice), "resenje\_Gaus\_",  "resenje\_Zajdel\_"( vektore gde \v cuvamo rezultate programa).\\* 
+
+\subsection{Gausova metoda eliminacije}
+Formiramo pro\v sirenu matricu sistema jednacine:\\*
+
+\begin{bmatrix}
+ A,b  
+\end{bmatrix}
+$=$
+\left\lceil
+\begin{matrix}
+ 9.5 & -2.5 & 0 & -2 & 0\\
+ -2.5 & 11 & -3.5 & 0 & -5\\
+ 0 & -3.5 & 15.5 & 0 & -4\\
+ -2 & 0 & 0 & 7 & -3\\
+ 0 & -5 & -4 & -3 & 12
+\end{matrix}
+\left\lvert
+\begin{matrix}
+ 12\\
+ -16\\
+ 14\\
+ 10\\
+ -30
+\end{matrix}
+\right\rceil 
+
+Za prvu kolonu biramo pivot tako \v sto nalazimo po apsolutnoj vrednosti najve\' ci element u prvoj koloni. Kako je najve\' ci pivot u 1.vrsti, ne menjamo mesta vrstama.
+Deo programa koji radi pivotiranje vrste jedna\v cina se zasniva na tome sto zamenjuje mesta promenljive tipa "Jedna\v cina" u vektoru "jedna\v cine_" i tako simulira menjanje vrsta u sistemu jedna\v cina:\\
+
+
+\begin{lstlisting}[language=C++ ]
+void SistemJednacina::pivotiranje(int broj_kolone){
+  int maks = broj_kolone;
+  for (int i = maks; i+1< 5; i++) {
+	if (abs(jednacine_[maks]->koeficijenti_[broj_kolone]) < abs(jednacine_[i + 1]->koeficijenti_[broj_kolone])) {
+		maks = i + 1;
+	}
+  }
+  if (maks != broj_kolone) {
+	Jednacina* jednacina = new Jednacina();
+	jednacina->koeficijenti_.push_back(jednacine_[maks]->koeficijenti_[0]);
+	jednacina->koeficijenti_.push_back(jednacine_[maks]->koeficijenti_[1]);
+	jednacina->koeficijenti_.push_back(jednacine_[maks]->koeficijenti_[2]);
+	jednacina->koeficijenti_.push_back(jednacine_[maks]->koeficijenti_[3]);
+	jednacina->koeficijenti_.push_back(jednacine_[maks]->koeficijenti_[4]);
+	jednacina->koeficijenti_.push_back(jednacine_[maks]->koeficijenti_[5]);
+
+	jednacine_[maks]->koeficijenti_[0] = jednacine_[broj_kolone]->koeficijenti_[0];
+	jednacine_[maks]->koeficijenti_[1] = jednacine_[broj_kolone]->koeficijenti_[1];
+	jednacine_[maks]->koeficijenti_[2] = jednacine_[broj_kolone]->koeficijenti_[2];
+	jednacine_[maks]->koeficijenti_[3] = jednacine_[broj_kolone]->koeficijenti_[3];
+	jednacine_[maks]->koeficijenti_[4] = jednacine_[broj_kolone]->koeficijenti_[4];
+	jednacine_[maks]->koeficijenti_[5] = jednacine_[broj_kolone]->koeficijenti_[5];
+
+	jednacine_[broj_kolone]->koeficijenti_[0] = jednacina->koeficijenti_[0];
+	jednacine_[broj_kolone]->koeficijenti_[0] = jednacina->koeficijenti_[1];
+	jednacine_[broj_kolone]->koeficijenti_[0] = jednacina->koeficijenti_[2];
+	jednacine_[broj_kolone]->koeficijenti_[0] = jednacina->koeficijenti_[3];
+	jednacine_[broj_kolone]->koeficijenti_[0] = jednacina->koeficijenti_[4];
+	jednacine_[broj_kolone]->koeficijenti_[0] = jednacina->koeficijenti_[5];
+
+  }
+}
+\end{lstlisting}
+%\begin{lstlisting}[language=C++ ]
+%\end{lstlisting}
+Slede\' ce se nalaze modifikatori za $k$-tu vrstu ($k$=2,3,4,5):
+\begin{equation*}
+  \begin{aligned}
+    m_{21}=a_{21}/a_{11}=-2.5/9.5=-0.263158\\
+    m_{31}=a_{31}/a_{11}=0/9.5=0\\
+    m_{41}=a_{41}/a_{11}=-2/9.5=-0.210526\\
+    m_{51}=a_{51}/a_{11}=0/9.5=0\\
+\end{aligned}
+\end{equation*}
+
+Deo programa koji nalazi nove multiplikatore tako \v sto u vektor tipa $double$ dodaju elementi koje predstavljaju nove multiplikatore koji se dobijaju deljenjem odgovaraju\' cih \v clanova vektora koeficijenata(predstavlja kolonu) sa odgovaraju\' cim \v clanovima vektora jedna\cv cina(predstavlja vrstu):
+
+\begin{lstlisting}[language=C++ ]
+void SistemJednacina::noviMultiplikatori(int broj_vrste){
+	int pocetni_red = broj_vrste - 1;
+	for (int i = broj_vrste; i < 5; i++) {
+		multiplikatori_.push_back(jednacine_[i]->koeficijenti_[broj_vrste-1]/ jednacine_[pocetni_red]->koeficijenti_[broj_vrste-1]);
+	}
+}
+\end{lstlisting}
+
+Sada odgovaraju\' ci elementi odgovaraju\' cih vrsta se oduzimaju sa odgovaraju\' cim elementima prve vrste koja je prethodno pomno\v zena odgovaraju\' cim multiplikatorom:
+
+\begin{equation*}
+  \begin{aligned}
+    a_{ij}^{2}=a_{ij}-m_{i1} \cdot a_{1j} \\
+    b_{i}^{2}=b_{i}-m_{i1} \cdot b_{1}
+ \end{aligned}
+\end{equation*}
+
+Deo programa koji sredjuje matricu tako \v sto menja \v clanove vektora promenljive "koeficijenti\_"\  za date clanove vektora promenljive "jednacine\_":
+
+\begin{lstlisting}[language=C++ ]
+void SistemJednacina::novaMatrica(int broj_vrste){
+	int pocetni_red = broj_vrste-1, k=0;
+	for (int i = broj_vrste; i < 5; i++) {
+		for (int j = broj_vrste-1; j < 6; j++) {
+			jednacine_[i]->koeficijenti_[j] = jednacine_[i]->koeficijenti_[j] - multiplikatori_[k] * jednacine_[pocetni_red]->koeficijenti_[j];
+		}
+		k++;
+	}
+}
+\end{lstlisting}
+
+
+Ponavljamo iste postupke( biranje pivota, zamena mesta vrste matrica, nala\v zenje multiplikatora i oduzimanje vrsta) na sistemu od 4 jedna\v cine \v sto je za jedan manje nego prethodni korak, i tako sve dok se ne formira gornja
+trougaona matrica \v cije se kona\v cno re\v senje dobija postupkom re\v savanjem unazad:
+
+\begin{equation*}
+  \begin{aligned}
+\begin{equation*}
+  \begin{aligned}
+    x_{n}=\frac{b_{n}}{a_{nn}}
+    \end{aligned}
+\end{equation*}
+
+\begin{equation*}
+  \begin{aligned}
+    x_{i}=\frac{1}{a_{ii}}(b_{i}-\sum_{\substack{i+1<k<n
+  }} a_{ik} \cdot x_{k})
+  \end{aligned}
+\end{equation*}
+
+Deo programa koji nalaze od poslednje date matrice kona\v cna re\v senja:
+
+\begin{lstlisting}[language=C++ ]
+void SistemJednacina::nalazenjeResenja(){
+	double sum = 0;
+	
+	for (int i = 4; i >= 0; i--) {
+		sum = 0;
+		if (i == 4) {
+			resenje_Gaus_.push_back(jednacine_[i]->koeficijenti_[i+1] / jednacine_[i]->koeficijenti_[i]);
+		}
+		else {
+			for (int j = i+1, k=1; j<5 ; j++,k++ ) {
+				sum += (jednacine_[i]->koeficijenti_[j]* resenje_Gaus_[(int)(resenje_Gaus_.size())-k]);
+			}
+			resenje_Gaus_.push_back(1/(jednacine_[i]->koeficijenti_[i])*(jednacine_[i]->koeficijenti_[5] -sum));
+		}
+	}
+}
+}
+\end{lstlisting}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{bmatrix}
+ A^{2},b^{2}  
+\end{bmatrix}
+$=$
+\left\lceil
+\begin{matrix}
+ 9.5 & -2.5 & 0 & -2 & 0\\
+ 0 & 10.3421 & -3.5 & -0.526316 & -5\\
+ 0 & -3.5 & 15.5 & 0 & -4\\
+ 0 & -0.526316 & 0 & 6.57895 & -3\\
+ 0 & -5 & -4 & -3 & 12
+\end{matrix}
+\left\lvert
+\begin{matrix}
+ 12\\
+ -12.8421\\
+ 14\\
+ 12.5263\\
+ -30
+\end{matrix}
+\right\rceil 
+
+
+\begin{equation*}
+  \begin{aligned}
+    m_{32}=a_{32}/a_{22}=-0.338422
+    \end{aligned}
+\end{equation*}
+\begin{equation*}
+  \begin{aligned}
+    m_{42}=a_{42}/a_{22}=-0.0508906
+    \end{aligned}
+\end{equation*}
+\begin{equation*}
+  \begin{aligned}
+    m_{52}=a_{52}/a_{22}=-0.483461\\
+\end{aligned}
+\end{equation*}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{bmatrix}
+ A^{3},b^{3}  
+\end{bmatrix}
+$=$
+\left\lceil
+\begin{matrix}
+ 9.5 & -2.5 & 0 & -2 & 0\\
+ 0 & 10.3421 & -3.5 & -0.526316 & -5\\
+ 0 & 0 & 14.3155 & -0.178117 & -5.69211\\
+ 0 & 0 & -0.178117 & 6.55216 & -3.25445\\
+ 0 & 0 & -5.69211 & -3.25445 & 9.5827
+\end{matrix}
+\left\lvert
+\begin{matrix}
+ 12\\
+ -12.8421\\
+ 9.65394\\
+ 11.8728\\
+ -36.2087
+\end{matrix}
+\right\rceil 
+
+\begin{equation*}
+  \begin{aligned}
+    m_{43}=a_{43}/a_{33}=-0.0124422
+    \end{aligned}
+\end{equation*}
+    \begin{equation*}
+  \begin{aligned}
+    m_{53}=a_{53}/a_{33}=-0.397618
+\end{aligned}
+\end{equation*}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{bmatrix}
+ A^{4},b^{4}
+\end{bmatrix}
+$=$
+\left\lceil
+\begin{matrix}
+ 9.5 & -2.5 & 0 & -2 & 0\\
+ 0 & 10.3421 & -3.5 & -0.526316 & -5\\
+ 0 & 0 & 14.3155 & -0.178117 & -5.69211\\
+ 0 & 0 & 0 & 6.54995 & -3.32528\\
+ 0 & 0 & 0 & -3.32528 & 7.31941
+\end{matrix}
+\left\lvert
+\begin{matrix}
+ 12\\
+-12.8421\\
+ 9.65394\\
+ 11.9929\\
+ -32.3701
+\end{matrix}
+\right\rceil 
+
+\begin{equation*}
+  \begin{aligned}
+    m_{54}=a_{54}/a_{44}=-0.50768
+\end{aligned}
+\end{equation*}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{bmatrix}
+ A^{5},b^{5}  
+\end{bmatrix}
+$=$
+\left\lceil
+\begin{matrix}
+ 9.5 & -2.5 & 0 & -2 & 0\\
+ 0 & 10.3421 & -3.5 & -0.526316 & -5\\
+ 0 & 0 & 14.3155 & -0.178117 & -5.69211\\
+ 0 & 0 & 0 & 6.54995 & -3.32528\\
+ 0 & 0 & 0 & 0 & 5.63123
+\end{matrix}
+\left\lvert
+\begin{matrix}
+ 12\\
+-12.8421\\
+ 9.65394\\
+ 11.9929\\
+ -26.2815
+\end{matrix}
+\right\rceil 
+
+\begin{equation*}
+  \begin{aligned}
+    x_{5}=b_{5}/a_{55}=-2.5/9.5=-4.6671
+    \end{aligned}
+\end{equation*}
+\begin{equation*}
+  \begin{aligned}    
+    x_{4}=\frac{1}{a_{44}}(b_{4}-a_{45} \cdot x_{5})=-0.5384
+    \end{aligned}
+\end{equation*}
+\begin{equation*}
+  \begin{aligned}
+    x_{3}=\frac{1}{a_{33}}(b_{3}-a_{34} \cdot x_{4} - a_{35} \cdot x_{5})=-1.18805
+    \end{aligned}
+\end{equation*}
+\begin{equation*}
+  \begin{aligned}
+    x_{2}=\frac{1}{a_{22}}(b_{2}- a_{23} \cdot x_{3} - a_{24} \cdot x_{4} - a_{25} \cdot x_{5})=-3.92755
+    \end{aligned}
+\end{equation*}
+\begin{equation*}
+  \begin{aligned}
+    x_{1}=\frac{1}{a_{11}}(b_{1}- a_{12} \cdot x_{2} - a_{13} \cdot x_{3} - a_{14} \cdot x_{4} - a_{15} \cdot x_{5})=0.116244
+    \end{aligned}
+\end{equation*}
+\end{aligned}
+\end{equation*}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Gaus-Zajdelova metoda}
+Od polaznih jedna\v cina:
+\begin{equation*}
+  \begin{aligned}
+    9.5i1-2.5i2-2i4=12 \\
+    -2.5i1+11i2-3.5i3-5i5=-16\\
+    -3.5i2+15.5i3-4i5=14\\
+    -2i1+7i4-3i5=10\\
+    -5i2-4i3-3i4+12i5=-30,
+ \end{aligned}
+\end{equation*}
+
+potrebno je iz i-te jedna\v cine izraziti promenljivu $x_i$ i formiramo Gaus-Zajdelov iterativni proces:
+\begin{equation*}
+  \begin{aligned}
+   x_{1}^{(k+1)}= \frac{2.5}{9.5} \cdot x_{2}^{(k)} + \frac{2}{9.5} \cdot x_{4}^{(k)}+ \frac{12}{9.5} \\
+    \end{aligned}
+\end{equation*}
+\begin{equation*}
+  \begin{aligned}
+   x_{2}^{(k+1)}= \frac{2.5}{11} \cdot x_{1}^{(k+1)} + \frac{3.5}{11} \cdot x_{3}^{(k)} + \frac{5}{11} \cdot x_{5}^{(k)} - \frac{16}{11} \\
+    \end{aligned}
+\end{equation*}
+\begin{equation*}
+  \begin{aligned}
+   x_{3}^{(k+1)}= \frac{3.5}{15.5} \cdot x_{2}^{(k+1)} + \frac{4}{15.5} \cdot x_{5}^{(k)}+ \frac{14}{9.5}\\
+    \end{aligned}
+\end{equation*}
+\begin{equation*}
+  \begin{aligned}
+   x_{4}^{(k+1)}= \frac{2}{7} \cdot x_{1}^{(k+1)} + \frac{3}{7} \cdot x_{5}^{(k)}+ \frac{10}{7} \\
+    \end{aligned}
+\end{equation*}
+\begin{equation*}
+  \begin{aligned}
+   x_{5}^{(k+1)}= \frac{5}{12} \cdot x_{2}^{(k+1)} + \frac{4}{12} \cdot x_{3}^{(k+1)} + \frac{3}{12} \cdot x_{4}^{(k+1)} - \frac{30}{12} \\
+ \end{aligned}
+\end{equation*}
+
+Po\v cetna vrednost je $x^{0}=[0,0,0,0]^{T}$ i stajemo sa iteracijom kada se dve susedne iteracije poklope sa 4 decimala.
+
+Za ovu metodu je bilo potrebno u programu pripremiti sistem jedna\v cina kako bi se primenile iteracije. Deo programa koji priprema vektore tipa "Jedna\v cina"\ :
+
+
+
+\begin{lstlisting}[language=C++ ]
+void SistemJednacina::noviSistemJednacina(){
+	for (int i = 0; i < 5; i++) {
+		for (int j = 0; j < 6; j++) {
+			if (i != j) {
+				if (j == 5) {
+					jednacine_[i]->koeficijenti_[j] = jednacine_[i]->koeficijenti_[j] / jednacine_[i]->koeficijenti_[i];
+				}
+				else {
+					jednacine_[i]->koeficijenti_[j] = (jednacine_[i]->koeficijenti_[j] / jednacine_[i]->koeficijenti_[i])*(-1);
+				}
+			}			
+		}
+		jednacine_[i]->koeficijenti_[i] = 0;
+	}
+}
+\end{lstlisting}
+
+Deo programa koji nalazi re\v senja i puni vektor "resenje\_Zajdel\_":
+
+\begin{lstlisting}[language=C++ ]
+void SistemJednacina::nalazenjeResenja2(){
+	bool radi = true;
+	double x1, x2, x3, x4, x5;
+	
+	while (radi) {
+		for (double R : resenje_Zajdel_) {
+			cout << R << "  ";
+		}
+		cout << endl;
+		x1 = resenje_Zajdel_[1];
+		x2 = resenje_Zajdel_[2];
+		x3 = resenje_Zajdel_[3];
+		x4 = resenje_Zajdel_[4];
+		x5 = resenje_Zajdel_[5];
+
+		for (int i = 1; i <= 5; i++) {
+			resenje_Zajdel_[i] = jednacine_[i-1]->koeficijenti_[0] * resenje_Zajdel_[1] + jednacine_[i - 1]->koeficijenti_[1] * resenje_Zajdel_[2] + jednacine_[i - 1]->koeficijenti_[2] * resenje_Zajdel_[3] + jednacine_[i - 1]->koeficijenti_[3] * resenje_Zajdel_[4] + jednacine_[i - 1]->koeficijenti_[4] * resenje_Zajdel_[5] + jednacine_[i - 1]->koeficijenti_[5];
+		}
+		//if (x1 == resenje_Zajdel_[1] && x2 == resenje_Zajdel_[2] && x3 == resenje_Zajdel_[3] && x4 == resenje_Zajdel_[4] && x5 == resenje_Zajdel_[5]) {
+		//	radi = false;
+		//}
+
+		if (uporedi(resenje_Zajdel_[1], x1) && uporedi(resenje_Zajdel_[2], x2) && uporedi(resenje_Zajdel_[3], x3) && uporedi(resenje_Zajdel_[4], x4) && uporedi(resenje_Zajdel_[5], x5)) {
+			radi = false;
+		}
+
+		resenje_Zajdel_[0]++;
+		//for (double R : resenje_Zajdel_) {
+		//	cout << R << "  ";
+		//}
+		//cout << endl;
+	
+	}
+}
+
+bool SistemJednacina::uporedi(double trenutni_rezultat, double prethodni_rezultat, double razlika){
+	if (fabs(trenutni_rezultat - prethodni_rezultat) < razlika) {
+		return true;
+	}
+	return false;
+}
+\end{lstlisting}
+
+Tabela Iteracije:
+
+\begin{table}[h!]
+\centering
+ \begin{tabular}{||c c c c c c||} 
+ \hline
+ k & x_{1} & x_{2} & x_{3} & x_{4} & x_{5} \\ [0.5ex] 
+ \hline\hline
+ 0 & 0 & 0 & 0 & 0 & 0\\ 
+ 1 & 1.26316 & -1.16746 & 0.639605 & 1.78947 & -2.32587\\ 
+ 2 & 0.33266 & -2.00537 & -0.149826 & 0.812529 & -3.18238\\ 
+ 3 & 0.906487 & -2.74273 & -0.537361 & 0.32369 & -3.741\\ 
+ 4 & 0.609531 & -3.18745 & -0.781941 & -0.000564235 & -4.08889\\ 
+ 5 & 0.424236 & -3.46552 & -0.934508 & -0.202601 & -4.30612\\ 
+ 6 & 0.308527 & -3.6391 & -1.02976 & -0.328757 & -4.44173\\ 
+ 7 & 0.236289 & -3.74746 & -1.08923 & -0.407517 & -4.5264\\ 
+ 8 & 0.19119 & -3.81512 & -1.12636 & -0.456688 & -4.57926\\ 
+ 9 & 0.163034 & -3.85736 & -1.14953 & -0.487368 & -4.61226\\ 
+ 10 & 0.145456 & -3.88373 & -1.16401 & -0.506552 & -4.63286\\ 
+ 11 & 0.134481 & -3.90019 & -1.17304 & -0.518517 & -4.64572\\ 
+ 12 & 0.127630 & -3.91047 & -1.17868 & -0.525987 & -4.65375\\ 
+ 13 & 0.123353 & -3.91689 & -1.1822 & -0.53065 & -4.65877\\ 
+ 14 & 0.120682 & -3.92089 & -1.1844 & -0.533562 & -4.6619\\ 
+ 15 & 0.119015 & -3.92339 & -1.18577 & -0.53538 & -4.66385\\ 
+ 16 & 0.117974 & -3.92496 & -1.18663 & -0.536515 & -4.66507\\
+ 17 & 0.117324 & -3.92593 & -1.18716 & -0.537223 & -4.66583\\
+ 18 & 0.116919 & -3.92654 & -1.1875 & -0.537665 & -4.66631\\
+ 19 & 0.116665 & -3.92692 & -1.18771 & -0.537941 & -4.6666\\
+ 20 & 0.116507 & -3.92716 & -1.18784 & -0.538114 & -4.66679\\
+ 21 & 0.116408 & -3.9273 & -1.18792 & -0.538222 & -4.6669\\
+ 22 & 0.116347 & -3.9274 & -1.18797 & -0.538289 & -4.66698\\
+ 23 & 0.116308 & -3.92745 & -1.188 & -0.538331 & -4.66702\\
+ 24 & 0.116284 & -3.92749 & -1.18802 & -0.538357 & -4.66705\\
+ 25 & 0.116269 & -3.92751 & -1.18803 & -0.538373 & -4.66707\\
+ 26 & 0.11626 & -3.92753 & -1.18804 & -0.538383 & -4.66708\\
+ \hline
+ \end{tabular}
+\end{table}
+
+\begin{equation*}
+  \begin{aligned}
+    x_{1}=0.1163
+    \end{aligned}
+\end{equation*}
+\begin{equation*}
+  \begin{aligned}    
+    x_{2}=-3.9275
+    \end{aligned}
+\end{equation*}
+\begin{equation*}
+  \begin{aligned}
+    x_{3}=-1.1880
+    \end{aligned}
+\end{equation*}
+\begin{equation*}
+  \begin{aligned}
+    x_{4}=-0.5384
+    \end{aligned}
+\end{equation*}
+\begin{equation*}
+  \begin{aligned}
+    x_{5}=-4.6671
+    \end{aligned}
+\end{equation*}
+\end{aligned}
+\end{equation*}
+
+\section{Komentari}
+
+Koeficijenti sistema ne ispunjavaju uslov stroge dijagonalne dominatnosti:
+\begin{equation*}
+  \begin{aligned}
+   \mid a_{ii}\mid>\sum_{\substack{1<j<n, j\neq i}} \mid a_{ij}\mid,
+  \end{aligned}
+\end{equation*}
+ta\v cnije u poslednjoj vrsti matrice sistema dijagonalni element jednak je zbiru preostalih elemenata te vrste ($\mid 12 \mid =\mid-5\mid + \mid-4\mid + \mid-3\mid $). Medjutim, uslov strogo dijagonalne dominantnosti nije potreban uslov da bi Gaus-Zajdelova metoda konvergirala. Uslov strogo dijagonalne dominantnosti obezbedjuje pre svega da pri preformulaciji jedna\v cina dijagonalni elementi kojima delimo budu razli\v citi od 0 \v sto u ovom slu\v caju ne moramo da se brinemo tj. nema potrebe za elementarnim transformacija sistema jedna\v cina. Broj iterativnih koraka \' ce biti manje ukoliko su elementi na dijagonali izrazito 
+dominatniji tj. konvergencija \' ce biti br\v za(u ovom slu\v caju je spora konvergencija jer dijagonalni elementi nisu \v cak ni striktno dominantni).
+\section{Dodatak}
+
+JEDNA\v CINA.H
+\begin{lstlisting}[language=C++ ]
+#ifndef JEDNACINA_H
+#define JEDNACINA_H
+
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+
+class Jednacina {
+public:
+	Jednacina(const string& ime = "jednacina");
+
+	void citajJednacinu(string unos);
+	void pisi() const;
+	vector<double> koeficijenti_;
+
+private:
+	string ime_;
+};
+
+#endif
+#pragma once
+
+
+\end{lstlisting}
+JEDNA\v CINA.CPP
+\begin{lstlisting}[language=C++ ]
+#include "Jednacina.h"
+
+Jednacina::Jednacina(const string& ime) : ime_(ime) {}
+
+void Jednacina::citajJednacinu(string unos){
+	int poz = 0;
+	int promenljiva = 1;
+	string broj = "";
+	float i;
+
+	while (poz < unos.length()) {
+		while (((unos[poz] >= '0' && unos[poz] <= '9') || unos[poz] == '.' || unos[poz] == '-') && poz < unos.length()) {
+			broj += unos[poz];
+			poz++;
+		}
+		if (poz >= unos.length()) { 
+			while (promenljiva <= 5) {
+				koeficijenti_.push_back(0);
+				promenljiva++;
+			}
+			koeficijenti_.push_back(stod(broj));
+			break; 
+		}
+		if (unos[poz+1] == promenljiva) {
+			koeficijenti_.push_back(stod(broj));
+			promenljiva++;
+		}
+		else {
+			while ((int)(unos[poz + 1]-'0') > promenljiva) {
+				koeficijenti_.push_back(0);
+				promenljiva++;
+			}
+			koeficijenti_.push_back(stod(broj));
+			promenljiva++;
+		}
+		poz += 3;
+		broj = "";
+		if(unos[poz-1] == '-'){ broj += '-'; }
+	}
+}
+
+void Jednacina::pisi() const{
+	for (float koeficijent : koeficijenti_) {
+		cout << koeficijent << "	  ";
+	}
+	cout << endl;
+	cout << endl;
+	cout << endl;
+}
+
+
+\end{lstlisting}
+SISTEMJEDNA\v CINA.H
+\begin{lstlisting}[language=C++ ]
+#ifndef SISTEMJEDNACINA_H
+#define SISTEMJEDNACINA_H
+
+#include "Jednacina.h"
+
+#include <cmath>
+#include <vector>
+using namespace std;
+
+class SistemJednacina {
+public:
+	SistemJednacina(const string& ime = "sistem jednacina");
+
+	void citajJednacinu(string unos);
+	void pisi() const;
+
+	void pivotiranje(int);
+	void noviMultiplikatori(int);
+	void gausMetoda();
+	void novaMatrica(int);
+	void nalazenjeResenja();
+
+	void gausZajdelovaMetoda();
+	void noviSistemJednacina();
+	void nalazenjeResenja2();
+	bool uporedi(double trenutni_rezultat, double prethodni_rezultat, double razlika=0.00001f);
+
+private:
+	vector<Jednacina*> jednacine_;
+	string ime_;
+	vector<double> multiplikatori_;
+	vector<double> resenje_Gaus_;
+	vector<double> resenje_Zajdel_;
+};
+
+#endif
+
+\end{lstlisting}
+SISTEMJEDNA\v CINA.CPP
+\begin{lstlisting}[language=C++ ]
+#include "SistemJednacina.h"
+
+SistemJednacina::SistemJednacina(const string& ime) : ime_(ime) {
+	for (int i = 0; i < 6; i++) {
+		resenje_Zajdel_.push_back(0);
+	}
+}
+
+void SistemJednacina::citajJednacinu(string unos){
+	Jednacina* jednacina = new Jednacina();
+
+	jednacina->citajJednacinu(unos);
+	jednacine_.push_back(jednacina);
+
+}
+
+void SistemJednacina::pisi() const{
+	for (Jednacina* jednacina : jednacine_) {
+		jednacina->pisi();
+	}
+}
+
+void SistemJednacina::pivotiranje(int broj_kolone){
+	int maks = broj_kolone;
+	for (int i = maks; i+1< 5; i++) {
+		if (abs(jednacine_[maks]->koeficijenti_[broj_kolone]) < abs(jednacine_[i + 1]->koeficijenti_[broj_kolone])) {
+			maks = i + 1;
+		}
+	}
+	if (maks != broj_kolone) {
+		Jednacina* jednacina = new Jednacina();
+		jednacina->koeficijenti_.push_back(jednacine_[maks]->koeficijenti_[0]);
+		jednacina->koeficijenti_.push_back(jednacine_[maks]->koeficijenti_[1]);
+		jednacina->koeficijenti_.push_back(jednacine_[maks]->koeficijenti_[2]);
+		jednacina->koeficijenti_.push_back(jednacine_[maks]->koeficijenti_[3]);
+		jednacina->koeficijenti_.push_back(jednacine_[maks]->koeficijenti_[4]);
+		jednacina->koeficijenti_.push_back(jednacine_[maks]->koeficijenti_[5]);
+
+		jednacine_[maks]->koeficijenti_[0] = jednacine_[broj_kolone]->koeficijenti_[0];
+		jednacine_[maks]->koeficijenti_[1] = jednacine_[broj_kolone]->koeficijenti_[1];
+		jednacine_[maks]->koeficijenti_[2] = jednacine_[broj_kolone]->koeficijenti_[2];
+		jednacine_[maks]->koeficijenti_[3] = jednacine_[broj_kolone]->koeficijenti_[3];
+		jednacine_[maks]->koeficijenti_[4] = jednacine_[broj_kolone]->koeficijenti_[4];
+		jednacine_[maks]->koeficijenti_[5] = jednacine_[broj_kolone]->koeficijenti_[5];
+
+		jednacine_[broj_kolone]->koeficijenti_[0] = jednacina->koeficijenti_[0];
+		jednacine_[broj_kolone]->koeficijenti_[0] = jednacina->koeficijenti_[1];
+		jednacine_[broj_kolone]->koeficijenti_[0] = jednacina->koeficijenti_[2];
+		jednacine_[broj_kolone]->koeficijenti_[0] = jednacina->koeficijenti_[3];
+		jednacine_[broj_kolone]->koeficijenti_[0] = jednacina->koeficijenti_[4];
+		jednacine_[broj_kolone]->koeficijenti_[0] = jednacina->koeficijenti_[5];
+
+	}
+}
+
+void SistemJednacina::noviMultiplikatori(int broj_vrste){
+	int pocetni_red = broj_vrste - 1;
+	for (int i = broj_vrste; i < 5; i++) {
+		multiplikatori_.push_back(jednacine_[i]->koeficijenti_[broj_vrste-1]/ jednacine_[pocetni_red]->koeficijenti_[broj_vrste-1]);
+	}
+}
+
+void SistemJednacina::gausMetoda(){
+	int i = 5;
+	/*pivotiranje(0);
+	noviMultiplikatori(1);
+	novaMatrica(1);
+	multiplikatori_.clear();
+	pisi();
+
+	pivotiranje(1);
+	noviMultiplikatori(2);
+	novaMatrica(2);
+	multiplikatori_.clear();
+	pisi();
+
+	pivotiranje(2);
+	noviMultiplikatori(3);
+	novaMatrica(3);
+	multiplikatori_.clear();
+	pisi();
+
+	pivotiranje(3);
+	noviMultiplikatori(4);
+	novaMatrica(4);
+	multiplikatori_.clear();
+	pisi();*/
+	for (int i = 0; i < 4; i++) {
+		pivotiranje(i);
+		noviMultiplikatori(i+1);
+		novaMatrica(i + 1);
+		cout << endl;
+		cout << i+1 << ".korak";
+		cout << "======================================================" << endl;
+		cout << "multiplikatori: ";
+		for (double mp : multiplikatori_) {
+			cout << mp << "  ";
+		}
+		cout << endl;
+		cout << "======================================================" << endl;
+		multiplikatori_.clear();
+		cout << "======================================================" << endl;
+		pisi();
+		cout << "======================================================" << endl;
+	}
+	nalazenjeResenja();
+
+	cout << "Resenje sistema jednacina su: ";
+	for (double R : resenje_Gaus_) {
+		cout << "x" << i-- << ":" << R << "  ";
+	}
+	cout << endl;
+
+}
+
+void SistemJednacina::gausZajdelovaMetoda(){
+	noviSistemJednacina();
+	nalazenjeResenja2();
+	
+}
+
+void SistemJednacina::noviSistemJednacina(){
+	for (int i = 0; i < 5; i++) {
+		for (int j = 0; j < 6; j++) {
+			if (i != j) {
+				if (j == 5) {
+					jednacine_[i]->koeficijenti_[j] = jednacine_[i]->koeficijenti_[j] / jednacine_[i]->koeficijenti_[i];
+				}
+				else {
+					jednacine_[i]->koeficijenti_[j] = (jednacine_[i]->koeficijenti_[j] / jednacine_[i]->koeficijenti_[i])*(-1);
+				}
+			}			
+		}
+		jednacine_[i]->koeficijenti_[i] = 0;
+	}
+}
+
+void SistemJednacina::nalazenjeResenja2(){
+	bool radi = true;
+	double x1, x2, x3, x4, x5;
+	
+	while (radi) {
+		for (double R : resenje_Zajdel_) {
+			cout << R << "  ";
+		}
+		cout << endl;
+		x1 = resenje_Zajdel_[1];
+		x2 = resenje_Zajdel_[2];
+		x3 = resenje_Zajdel_[3];
+		x4 = resenje_Zajdel_[4];
+		x5 = resenje_Zajdel_[5];
+
+		for (int i = 1; i <= 5; i++) {
+			resenje_Zajdel_[i] = jednacine_[i-1]->koeficijenti_[0] * resenje_Zajdel_[1] + jednacine_[i - 1]->koeficijenti_[1] * resenje_Zajdel_[2] + jednacine_[i - 1]->koeficijenti_[2] * resenje_Zajdel_[3] + jednacine_[i - 1]->koeficijenti_[3] * resenje_Zajdel_[4] + jednacine_[i - 1]->koeficijenti_[4] * resenje_Zajdel_[5] + jednacine_[i - 1]->koeficijenti_[5];
+		}
+		//if (x1 == resenje_Zajdel_[1] && x2 == resenje_Zajdel_[2] && x3 == resenje_Zajdel_[3] && x4 == resenje_Zajdel_[4] && x5 == resenje_Zajdel_[5]) {
+		//	radi = false;
+		//}
+
+		if (uporedi(resenje_Zajdel_[1], x1) && uporedi(resenje_Zajdel_[2], x2) && uporedi(resenje_Zajdel_[3], x3) && uporedi(resenje_Zajdel_[4], x4) && uporedi(resenje_Zajdel_[5], x5)) {
+			radi = false;
+		}
+
+		resenje_Zajdel_[0]++;
+		//for (double R : resenje_Zajdel_) {
+		//	cout << R << "  ";
+		//}
+		//cout << endl;
+	
+	}
+}
+
+bool SistemJednacina::uporedi(double trenutni_rezultat, double prethodni_rezultat, double razlika){
+	if (fabs(trenutni_rezultat - prethodni_rezultat) < razlika) {
+		return true;
+	}
+	return false;
+}
+
+void SistemJednacina::novaMatrica(int broj_vrste){
+	int pocetni_red = broj_vrste-1, k=0;
+	for (int i = broj_vrste; i < 5; i++) {
+		for (int j = broj_vrste-1; j < 6; j++) {
+			jednacine_[i]->koeficijenti_[j] = jednacine_[i]->koeficijenti_[j] - multiplikatori_[k] * jednacine_[pocetni_red]->koeficijenti_[j];
+		}
+		k++;
+	}
+}
+
+void SistemJednacina::nalazenjeResenja(){
+	double sum = 0;
+	
+	for (int i = 4; i >= 0; i--) {
+		sum = 0;
+		if (i == 4) {
+			resenje_Gaus_.push_back(jednacine_[i]->koeficijenti_[i+1] / jednacine_[i]->koeficijenti_[i]);
+		}
+		else {
+			for (int j = i+1, k=1; j<5 ; j++,k++ ) {
+				sum += (jednacine_[i]->koeficijenti_[j]* resenje_Gaus_[(int)(resenje_Gaus_.size())-k]);
+			}
+			resenje_Gaus_.push_back(1/(jednacine_[i]->koeficijenti_[i])*(jednacine_[i]->koeficijenti_[5] -sum));
+		}
+	}
+}
+
+\end{lstlisting}
+MAIN.CPP
+\begin{lstlisting}[language=C++ ]
+#include "SistemJednacina.h"
+
+#include "string"
+using namespace std;
+
+int main() {
+	string nova_jednacina;
+	int izbor;
+	bool radi = true;
+
+	SistemJednacina* sistem_jednacina = new SistemJednacina();
+
+	while (radi) {
+		cout << "Odaberite opciju:\n1. Unos nove jednacine\n2. Kraj unosa " << endl;
+		cin >> izbor;
+
+		try {
+			switch (izbor) {
+			case 1: {  //Ucitavanje nove jednacine
+				string putanja;
+
+				//cout << izbor << "\nNova jednacina => " << endl;    //////////////////////////
+				//cin >> nova_jednacina;								/////////////////////////
+
+				//sistem_jednacina->citajJednacinu(nova_jednacina);////////////////////////////////////
+				sistem_jednacina->citajJednacinu("9.5i1-2.5i2-2i4=12");
+				sistem_jednacina->citajJednacinu("-2.5i1+11i2-3.5i3-5i5=-16");
+				sistem_jednacina->citajJednacinu("-3.5i2+15.5i3-4i5=14");
+				sistem_jednacina->citajJednacinu("-2i1+7i4-3i5=10");
+				sistem_jednacina->citajJednacinu("-5i2-4i3-3i4+12i5=-30");
+				sistem_jednacina->pisi();
+				cout << "\nZavrsen unos " << endl;
+				
+				break;
+			}
+			case 2: {  //Kraj unosa
+				radi = false;
+				break;
+			}
+			default:
+				cout << "Netacan unos\n\n";
+			}
+		}
+		catch (string izuzetak) {
+			//prihvatiGresku(izuzetak);
+		}
+	}
+
+	if (izbor) { radi = true; }
+
+	while (radi) {
+		cout << "=======================================================" << endl;
+		cout << "Molimo Vas, odaberite nacin resavanja zadatka:\n1. Gausova metoda eliminacije sa izborom pivota\n2. Gaus-Zajdenlova metoda\n3. Prikaz prosirene matrice sistema jednacine\n4. Kraj programa\n " << endl;
+		cout << "=======================================================" << endl << endl;
+		cin >> izbor;  //izbor opcija
+
+		switch (izbor) {
+
+		case 1: {		//Gausova metoda eliminacije sa izborom pivota
+			sistem_jednacina->gausMetoda();
+			//sistem_jednacina->pisi();
+			break;
+		}
+		case 2: {		//Gaus-Zajdenlova metoda
+			sistem_jednacina->gausZajdelovaMetoda();
+			break;
+		}	
+		case 3: {		//Prikaz proserene matrice koeficijenata
+			sistem_jednacina->pisi();
+			break;
+		}
+		case 4: {		//Kraj programa
+			cout << "Kraj programa" << endl;
+			radi = false;
+			break;
+		}
+		default:
+			cout << "Netacan unos\n\n";
+		}
+	}
+
+	delete sistem_jednacina;
+
+	return 0;
+}
+
+\end{lstlisting}
+
+
+\end{document}

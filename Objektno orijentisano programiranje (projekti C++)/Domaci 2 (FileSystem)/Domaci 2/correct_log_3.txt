@@ -1,0 +1,8 @@
+\file1.txt
+\file2.txt
+\folder3
+\folder3\folder1
+\folder3\folder1\file1.txt
+\folder4
+\folder4\file3.txt
+\folder4\file4.txt

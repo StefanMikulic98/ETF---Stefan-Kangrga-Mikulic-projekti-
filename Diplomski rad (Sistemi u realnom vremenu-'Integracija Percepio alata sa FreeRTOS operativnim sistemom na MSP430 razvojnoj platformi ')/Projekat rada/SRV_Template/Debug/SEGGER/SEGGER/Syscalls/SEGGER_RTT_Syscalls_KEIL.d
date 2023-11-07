@@ -1,0 +1,6 @@
+# FIXED
+
+SEGGER/SEGGER/Syscalls/SEGGER_RTT_Syscalls_KEIL.obj: ../SEGGER/SEGGER/Syscalls/SEGGER_RTT_Syscalls_KEIL.c
+
+../SEGGER/SEGGER/Syscalls/SEGGER_RTT_Syscalls_KEIL.c:
+

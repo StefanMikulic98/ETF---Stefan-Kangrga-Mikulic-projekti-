@@ -1,0 +1,9 @@
+U oba testa postoje dva ulazna fajla:
+- linije.txt (spisak svih linija u sistemu)
+- stajalista.txt (spisak svih stajalista u sistemu)
+
+U oba testa dat je primer jednog izlaza za svaku od dostupnih operacija:
+- linija_x.txt (informacije o liniji x)
+- stajaliste_x.txt (informacije o stajalistu x)
+- statistika_x.txt (statisticke informacije o liniji x)
+- putanja_x_y.txt (simulacija voznje od stanice x do stanice y koristeci prvu strategiju)

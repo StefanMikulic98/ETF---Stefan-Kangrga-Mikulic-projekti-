@@ -1,0 +1,9 @@
+154 Zeleni park
+578 Pijaca "Zdravlje"
+579 Pijaca "Zdravlje"
+23 Trg kralja Milana
+24 Trg kralja Milana
+1024 Bulevar Stefana Nemanje
+1025 Bulevar Stefana Nemanje
+103 Ive Andrica
+104 Ive Andrica

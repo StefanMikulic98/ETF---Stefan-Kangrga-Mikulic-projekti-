@@ -1,0 +1,5 @@
+CD folder2
+CD folder3
+CD ..
+CD folder4
+LS

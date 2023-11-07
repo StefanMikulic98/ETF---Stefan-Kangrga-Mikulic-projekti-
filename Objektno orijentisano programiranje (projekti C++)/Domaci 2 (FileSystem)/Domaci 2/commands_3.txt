@@ -1,0 +1,8 @@
+CD folder2
+CD folder3
+NEW folder1
+CD folder1
+NEW file1.txt This is a new file.
+CD ..
+CD ..
+LS

@@ -1,0 +1,9 @@
+12 Zeleni park->Bulevar Stefana Nemanje
+154 Zeleni park
+578 Pijaca "Zdravlje"
+104 Ive Andrica
+1024 Bulevar Stefana Nemanje
+1024 Bulevar Stefana Nemanje
+103 Ive Andrica
+579 Pijaca "Zdravlje"
+154 Zeleni park

@@ -1,0 +1,15 @@
+﻿  GradskiPrevoz.cpp
+C:\Users\stefa\source\repos\Projekat\Projekat\Matrica.h(4,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+C:\Users\stefa\source\repos\Projekat\Projekat\GradskiPrevoz.cpp(23,7): warning C4101: 'provera': unreferenced local variable
+C:\Users\stefa\source\repos\Projekat\Projekat\GradskiPrevoz.cpp(108,29): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\stefa\source\repos\Projekat\Projekat\GradskiPrevoz.cpp(110,38): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\stefa\source\repos\Projekat\Projekat\GradskiPrevoz.cpp(332,17): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
+C:\Users\stefa\source\repos\Projekat\Projekat\GradskiPrevoz.cpp(371,17): warning C4244: '=': conversion from '__int64' to 'int', possible loss of data
+  Linija.cpp
+  Matrica.cpp
+C:\Users\stefa\source\repos\Projekat\Projekat\Matrica.h(4,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+  Stajaliste.cpp
+  Test.cpp
+C:\Users\stefa\source\repos\Projekat\Projekat\Matrica.h(4,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+  Generating Code...
+  Projekat.vcxproj -> C:\Users\stefa\source\repos\Projekat\x64\Debug\Projekat.exe
