@@ -1,3 +1,5 @@
+To view the web application, click: https://practice-project---quiz-app.web.app/
+
 Learned React concepts by the time of writing the project:
 
 -React JS Rendering Elements,
