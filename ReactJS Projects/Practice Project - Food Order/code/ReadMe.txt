@@ -1,5 +1,3 @@
-To view the web application, click: https://practice-project---food-4decd.web.app/
-
 Learned React concepts by the time of writing the project:
 
 -React JS Rendering Elements,
