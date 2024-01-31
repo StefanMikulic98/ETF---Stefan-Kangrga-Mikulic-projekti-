@@ -1,5 +1,13 @@
 To view the web application, click: https://practice-project---food-4decd.web.app/
 
+To start the program, type in the terminal:
+$ cd backend
+$ npm install
+$ npm start
+$ cd ..
+$ npm install
+$ npm run dev
+
 Learned React concepts by the time of writing the project:
 
 -React JS Rendering Elements,

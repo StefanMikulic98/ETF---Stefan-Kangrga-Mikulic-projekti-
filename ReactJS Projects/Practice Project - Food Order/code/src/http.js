@@ -1,5 +1,5 @@
 export async function fetchMeals() {
-    const response = await fetch('http://localhost:3000/meals');
+    const response = await fetch('https://practice-project-food-order.onrender.com/meals');
     const resData = await response.json();
 
     if (!response.ok) {
