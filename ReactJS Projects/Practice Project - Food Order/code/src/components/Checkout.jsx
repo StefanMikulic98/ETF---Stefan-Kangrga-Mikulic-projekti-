@@ -55,7 +55,7 @@ export default function Checkout({ onCloseCheckout, onSelectAnswer }) {
         event.preventDefault();
 
         try {
-            const response = await fetch('http://localhost:3000/orders', {
+            const response = await fetch('https://practice-project-food-order.onrender.com/orders', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
