@@ -26,7 +26,7 @@ export default function Meals({ data, isLoading, error }) {
                             <li key={meal.id} className="meal-item">
                                 <article>
                                     <img
-                                        src={`https://practice-project-food-order.onrender.com/${meal.image}`}
+                                        src={`http://localhost:3000/${meal.image}`}
                                         alt={meal.name}
                                     />
                                     <div>
