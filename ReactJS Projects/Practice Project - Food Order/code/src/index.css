@@ -222,10 +222,13 @@ h1 {
 }
 
 .text-button {
+  width: 130px;
+  height: 40px;
   font: inherit;
   cursor: pointer;
-  background-color: transparent;
   border: none;
+  border-radius: 0.5rem;
+  background-color: #312c1d;
   color: #ffc404;
 }
 
