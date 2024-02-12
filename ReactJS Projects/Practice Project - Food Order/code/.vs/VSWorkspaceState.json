@@ -1,11 +1,15 @@
 {
   "ExpandedNodes": [
     "",
+    "\\backend",
+    "\\backend\\data",
+    "\\backend\\public",
     "\\src",
     "\\src\\components",
     "\\src\\hooks",
     "\\src\\store",
     "\\src\\util"
   ],
+  "SelectedNode": "\\backend",
   "PreviewInSolutionExplorer": false
 }

@@ -240,8 +240,8 @@ h1 {
 
 .error {
     width: 90%;
-    max-width: 25rem;
-    margin: 2rem auto;
+    max-width: 15rem;
+    margin: 0.5rem auto;
     padding: 1rem;
     background-color: #f9b8b8;
     color: #6d0b0b;
