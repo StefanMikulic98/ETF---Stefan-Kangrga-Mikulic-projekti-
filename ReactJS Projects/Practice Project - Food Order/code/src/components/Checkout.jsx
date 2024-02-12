@@ -177,7 +177,7 @@ export default function Checkout({ onCloseCheckout, onSelectAnswer }) {
                 <p >{errorSubmit.message}</p>
             </div>) }
             <p className="modal-actions">
-                <button className="text-button" type="button" onClick={onCloseCheckout}>Close</button>
+                <button className="cancel-button" type="button" onClick={onCloseCheckout}>Close</button>
                 <button className="button" type="submit">Checkout</button>
             </p>
 

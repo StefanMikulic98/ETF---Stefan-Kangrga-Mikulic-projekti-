@@ -23,7 +23,7 @@ export default function Cart({ onCloseOrder, onSelectCheckout }) {
     if (cartQuantity > 0) {
         modalActions = (
             <p className="modal-actions">
-                <button className="text-button" onClick={onCloseOrder}>Close</button>
+                <button className="cancel-button" onClick={onCloseOrder}>Close</button>
                 <button className="button" onClick={onSelectCheckout}>Go to Checkout</button>
             </p>
         );

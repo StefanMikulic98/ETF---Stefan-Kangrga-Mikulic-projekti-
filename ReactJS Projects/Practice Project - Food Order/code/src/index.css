@@ -232,6 +232,15 @@ h1 {
   color: #ffc404;
 }
 
+.cancel-button {
+  font: inherit;
+  cursor: pointer;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: transparent;
+  color: #312c1d;
+}
+
 .text-button:hover,
 .text-button:active {
   color: #ffab04;
